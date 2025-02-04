@@ -12,7 +12,7 @@ function swap(arr, i, j) {
 
 // TC = O(n^2)
 function insertion_sort(arr, n) {
-  for (let i = 0; i < n - 1; i++) {
+  for (let i = 0; i <= n - 1; i++) {
     let j = i;
     while (j > 0 && arr[j - 1] > arr[j]) {
       swap(arr, j, j - 1);
@@ -30,4 +30,5 @@ function main(arr) {
   console.log(insertion_sort(clone, n));
 }
 
-main([64, 34, 25, 12, 22, 11, 90]);
+// main([64, 34, 25, 12, 22, 11, 90]);
+main([9216, 5620, 9823, 9623, 3556, 1374, 1694, 6406, 1288]);

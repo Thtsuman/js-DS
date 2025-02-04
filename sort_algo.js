@@ -8,13 +8,13 @@ function selection_sort(arr, n) {
   for (let i = 0; i < n - 1; i++) {
     let min = i;
     for (let j = i + 1; j < n; j++) {
-      if (arr[j] < arr[min]) {
+      if (arr[min] > arr[j]) {
         min = j;
       }
     }
-
     swap(arr, i, min);
   }
+
   return arr;
 }
 
@@ -22,8 +22,8 @@ function bubble_sort(arr, n) {
   let swapped = false;
   for (let i = 0; i < n - 1; i++) {
     for (let j = 0; j < n - i - 1; j++) {
-      if (arr[j + 1] < arr[j]) {
-        swap(arr, j + 1, j);
+      if (arr[j] > arr[j + 1]) {
+        swap(arr, j, j + 1);
         swapped = true;
       }
     }
@@ -37,9 +37,8 @@ function bubble_sort(arr, n) {
 function insertion_sort(arr, n) {
   for (let i = 0; i < n - 1; i++) {
     let j = i;
-
-    while (j > 0 && arr[j] < arr[j - 1]) {
-      swap(arr, j, j - 1);
+    while (j > 0 && arr[j - 1] > arr[j]) {
+      swap(arr, j - 1, j);
       j--;
     }
   }
@@ -66,6 +65,7 @@ function merge(arr, low, mid, high) {
     temp.push(arr[left]);
     left++;
   }
+
   while (right <= high) {
     temp.push(arr[right]);
     right++;
@@ -81,11 +81,12 @@ function merge(arr, low, mid, high) {
 function merge_sort(arr, low, high) {
   if (low === high) return;
 
-  let middle = Math.floor((low + high) / 2);
-  merge_sort(arr, low, middle);
-  merge_sort(arr, middle + 1, high);
+  let mid = Math.floor((low + high) / 2);
 
-  merge(arr, low, middle, high);
+  merge_sort(arr, low, mid);
+  merge_sort(arr, mid + 1, high);
+
+  merge(arr, low, mid, high);
 
   return arr;
 }
@@ -116,7 +117,6 @@ function partition(arr, low, high) {
 function quick_sort(arr, low, high) {
   if (low < high) {
     let pIndex = partition(arr, low, high);
-
     quick_sort(arr, low, pIndex - 1);
     quick_sort(arr, pIndex + 1, high);
   }
@@ -135,4 +135,4 @@ function main(arr) {
   console.log(quick_sort(clone, 0, n - 1));
 }
 
-main([64, 34, 25, 12, 22, 11, 90]);
+main([64, 34, 25, 12, 22, 11, 90, 22]);
